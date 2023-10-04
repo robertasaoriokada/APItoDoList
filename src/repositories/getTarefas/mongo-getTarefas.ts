@@ -5,7 +5,7 @@ import { Tarefa } from "../../models/tarefa";
 export class MongoGetTarefasRepository implements IGetTarefasRepository {
   async getTarefas(): Promise<Tarefa[]> {
     const tarefas = await MongoCliente.db
-      .collection<Tarefa>("tarefas")
+      .collection<Omit<Tarefa, "id">>("tarefas")
       .find({})
       .toArray();
     return tarefas.map(({ _id, ...rest }) => ({
