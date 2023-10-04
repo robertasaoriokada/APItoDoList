@@ -11,7 +11,7 @@ export class GetTarefasController implements IGetTarefasController {
       };
     } catch (error) {
       return {
-        statusCode: 200,
+        statusCode: 500,
         body: "Something went wrong",
       };
     }

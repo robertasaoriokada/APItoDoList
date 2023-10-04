@@ -8,12 +8,9 @@ export class MongoGetTarefasRepository implements IGetTarefasRepository {
       .collection<Tarefa>("tarefas")
       .find({})
       .toArray();
-    return [
-      {
-        titulo: "Tirar o lixo",
-        descricao: "Misericórdia",
-        status: false,
-      },
-    ];
+    return tarefas.map(({ _id, ...rest }) => ({
+      ...rest,
+      id: _id.toHexString(),
+    }));
   }
 }
