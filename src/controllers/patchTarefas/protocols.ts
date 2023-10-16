@@ -1,13 +1,14 @@
 import { Tarefa } from "../../models/tarefa";
-import { HttpResponse } from "../protocolsGeneral";
+import { HttpRequest, HttpResponse } from "../protocolsGeneral";
 
 export interface PatchTarefasParams {
   titulo?: string;
-  decricao?: string;
+  descricao?: string;
   status?: boolean;
 }
 export interface IPatchTarefasController {
-  handle(params: PatchTarefasParams): Promise<HttpResponse<Tarefa>>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  handle(httpRequest: HttpRequest<any>): Promise<HttpResponse<Tarefa>>;
 }
 
 export interface IPatchTarefasRepository {

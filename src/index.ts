@@ -5,6 +5,8 @@ import { GetTarefasController } from "./controllers/getTarefas/getTarefa";
 import { MongoCliente } from "./database/mongo";
 import { MongoPostTarefaRepository } from "./repositories/postTarefas/mongo-postTarefas";
 import PostTarefaController from "./controllers/postTarefas/postTarefa";
+import { MongoPatchTarefasRepository } from "./repositories/patchTarefas/mongo-patchTarefas";
+import { PatchTarefasController } from "./controllers/patchTarefas/patchTarefas";
 
 const main = async () => {
   config();
@@ -32,6 +34,18 @@ const main = async () => {
       body: req.body,
     });
     res.send(body).status(statusCode);
+  });
+
+  app.patch("/tarefas/:id", async (req, res) => {
+    const mongoPatchTarefasRepository = new MongoPatchTarefasRepository();
+    const patchTarefasController = new PatchTarefasController(
+      mongoPatchTarefasRepository
+    );
+    const { body, statusCode } = await patchTarefasController.handle({
+      body: req.body,
+      params: req.params,
+    });
+    res.status(statusCode).send(body);
   });
 
   app.listen(port, () => {
