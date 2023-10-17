@@ -7,6 +7,8 @@ import { MongoPostTarefaRepository } from "./repositories/postTarefas/mongo-post
 import PostTarefaController from "./controllers/postTarefas/postTarefa";
 import { MongoPatchTarefasRepository } from "./repositories/patchTarefas/mongo-patchTarefas";
 import { PatchTarefasController } from "./controllers/patchTarefas/patchTarefas";
+import { MongoDeleteTarefaRepository } from "./repositories/deleteTarefas/mongo-deleteTarefas";
+import { DeleteTarefasController } from "./controllers/deleteTarefas/deleteTarefa";
 
 const main = async () => {
   config();
@@ -33,7 +35,19 @@ const main = async () => {
     const { body, statusCode } = await postTarefaController.handle({
       body: req.body,
     });
-    res.send(body).status(statusCode);
+    res.status(statusCode).send(body);
+  });
+
+  app.delete("tarefas/:id", async (req, res) => {
+    const mongoDeleteTarefaRepository = new MongoDeleteTarefaRepository();
+    const deleteTarefasController = new DeleteTarefasController(
+      mongoDeleteTarefaRepository
+    );
+    const { body, statusCode } = await deleteTarefasController.handle({
+      body: req.body,
+      params: req.params,
+    });
+    res.status(statusCode).send(body);
   });
 
   app.patch("/tarefas/:id", async (req, res) => {

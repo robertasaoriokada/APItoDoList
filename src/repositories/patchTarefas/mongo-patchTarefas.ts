@@ -24,7 +24,8 @@ export class MongoPatchTarefasRepository implements IPatchTarefasRepository {
       throw new Error("Tarefa não foi atualizazda");
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { _id, ...rest } = tarefa;
-    return { id: _id.toHexString(), ...rest };
+    return tarefa;
   }
 }

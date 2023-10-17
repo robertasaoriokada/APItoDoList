@@ -31,9 +31,10 @@ export default class PostTarefaController implements IPostTarefaController {
         body: tarefa,
       };
     } catch (error) {
+      console.log("oioioio");
       return {
         statusCode: 500,
-        body: "Algo deu errado",
+        body: error as unknown as Tarefa,
       };
     }
   }

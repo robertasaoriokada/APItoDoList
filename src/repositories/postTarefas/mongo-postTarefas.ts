@@ -12,14 +12,15 @@ export class MongoPostTarefaRepository implements IPostTarefaRepository {
       .insertOne(params);
 
     const tarefa = await MongoCliente.db
-      .collection<Omit<Tarefa, "id">>("tarefa")
+      .collection<Tarefa>("tarefa")
       .findOne({ _id: insertedId });
 
     if (!tarefa) {
-      throw new Error("Tarefa não criada");
+      throw "Tarefa não criada";
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { _id, ...rest } = tarefa;
 
-    return { id: _id.toHexString(), ...rest };
+    return tarefa;
   }
 }

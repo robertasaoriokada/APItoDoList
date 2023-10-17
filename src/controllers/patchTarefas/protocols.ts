@@ -12,5 +12,5 @@ export interface IPatchTarefasController {
 }
 
 export interface IPatchTarefasRepository {
-  patchTarefas(): Promise<Tarefa>;
+  patchTarefas(id: string, params: PatchTarefasParams): Promise<Tarefa>;
 }
