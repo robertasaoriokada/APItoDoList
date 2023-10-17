@@ -1,14 +1,16 @@
 import { Tarefa } from "../../models/tarefa";
-import { MongoDeleteTarefaRepository } from "../../repositories/deleteTarefas/mongo-deleteTarefas";
 import { HttpRequest, HttpResponse } from "../protocolsGeneral";
-import { IDeleteTarefasRepository } from "./protocols";
+import {
+  IDeleteTarefasController,
+  IDeleteTarefasRepository,
+} from "./protocols";
 
-export class DeleteTarefasController implements IDeleteTarefasRepository {
+export class DeleteTarefasController implements IDeleteTarefasController {
   constructor(
     private readonly deleteTarefasRepository: IDeleteTarefasRepository
   ) {}
 
-  async handle(httpRequest: HttpRequest<any>): Promise<HttpResponse<Tarefa>> {
+  async handle(httpRequest: HttpRequest<unknown>): Promise<HttpResponse<Tarefa>> {
     try {
       const id = httpRequest?.params?.id;
       if (!id) {
